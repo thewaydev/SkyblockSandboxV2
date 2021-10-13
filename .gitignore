@@ -1,0 +1,5 @@
+jar
+.idea
+target
+SandboxCore.iml
+src/main/kotlin/xyz/fragbots/sandboxcore/api/APIConfig.kt

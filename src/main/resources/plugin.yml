@@ -1,0 +1,4 @@
+name: SandboxCore
+main: xyz.fragbots.sandboxcore.SandboxCore
+version: 1.0.0
+prefix: "[SandboxCore]"
