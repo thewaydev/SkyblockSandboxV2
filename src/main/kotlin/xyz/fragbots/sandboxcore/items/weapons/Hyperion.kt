@@ -6,8 +6,8 @@ import xyz.fragbots.sandboxcore.items.SkyblockConsts
 import xyz.fragbots.sandboxcore.items.SkyblockItem
 import xyz.fragbots.sandboxcore.items.SkyblockItemData
 import xyz.fragbots.sandboxcore.items.SkyblockItemIDS
-import xyz.fragbots.sandboxcore.utils.ItemExtensions.getSkyblockItem
-import xyz.fragbots.sandboxcore.utils.ItemExtensions.isSkyblockItem
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.isSkyblockItem
 import xyz.fragbots.sandboxcore.utils.LoreGenerator
 import xyz.fragbots.sandboxcore.utils.Utils
 

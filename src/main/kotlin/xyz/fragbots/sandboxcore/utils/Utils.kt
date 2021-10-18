@@ -1,6 +1,11 @@
 package xyz.fragbots.sandboxcore.utils
 
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.Location
+import org.bukkit.entity.ArmorStand
+import org.bukkit.entity.EntityType
+import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.SkyblockConsts
 
 /*
@@ -57,6 +62,28 @@ object Utils {
             SkyblockConsts.BOOTS -> "BOOTS"
             else -> ""
         }
+    }
+
+    fun generateRandomNumber(min: Int, max: Int): Int {
+        return Math.round(Math.floor(Math.random() * (max - min + 1) + min)).toInt()
+    }
+
+    fun createHologram(loc: Location, name: String): ArmorStand {
+        val hologram: ArmorStand = loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND) as ArmorStand
+        hologram.setGravity(false)
+        hologram.canPickupItems = false
+        hologram.customName = name
+        hologram.isCustomNameVisible = true
+        hologram.isVisible = false
+        hologram.isMarker = true
+        return hologram
+    }
+
+    fun createHologramAndDelete(loc: Location,name: String,time:Long){
+        val holo = createHologram(loc,name)
+        Bukkit.getScheduler().runTaskLater(SandboxCore.instance,{
+            holo.remove()
+        },time)
     }
 
     fun format(message: String): String {
