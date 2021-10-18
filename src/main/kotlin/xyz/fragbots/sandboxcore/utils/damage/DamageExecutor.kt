@@ -17,7 +17,7 @@ class DamageExecutor {
         val initialDamage:Double = (5.0+playerStats.damage.toDouble())*(1.0+(playerStats.strength.toDouble()/100.0))
         val damageMultiplier = 1.0/*+(Combat Level)+Enchants*/
         val armorBonus = 1.0
-        val isCrit = false
+        val isCrit = (Random.nextInt(0,100)>=playerStats.critChance)
         val event = SkyblockDamageEvent(damager,isCrit,initialDamage,damageMultiplier,armorBonus)
         Bukkit.getPluginManager().callEvent(event)
         if(!event.isCancelled){
@@ -26,7 +26,7 @@ class DamageExecutor {
                 damage*=(1+(playerStats.critDamage/100))
             }
             val finalDamage = damage.toLong()
-            createDmgHolo(mob.location,finalDamage,isCrit)
+            createDmgHolo(mob.location,finalDamage,event.isCrit)
             damagee.damage(finalDamage)
         }
     }
