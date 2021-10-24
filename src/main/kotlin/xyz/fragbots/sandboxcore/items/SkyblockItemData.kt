@@ -34,7 +34,8 @@ data class SkyblockItemData(
                             var baseMagicFind:Long?=null,
                             var basePetLuck:Long?=null,
                             var baseAbilityDamage:Long?=null,
-                            var baseFerocity:Long?=null
+                            var baseFerocity:Long?=null,
+
 ){
     //Getters from all the values to ensure null safety
     fun getRarity():Int {

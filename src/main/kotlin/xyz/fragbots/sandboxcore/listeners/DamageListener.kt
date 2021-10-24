@@ -8,8 +8,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import xyz.fragbots.sandboxcore.SandboxCore
-import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
-import xyz.fragbots.sandboxcore.utils.damage.SkyblockDamageEvent
 
 /*
  * Manages all damage in skyblock.
@@ -36,7 +34,7 @@ class DamageListener : Listener{
             if(damager is Player && damagee.hasMetadata("sbEntityId")) {
                 event.damage = 0.0
                 val sbEntity = SandboxCore.instance.entityManager.getSkyblockEntity(damagee as LivingEntity) ?: return
-                SandboxCore.instance.damageExecutor.executePVE(damager,sbEntity)
+                SandboxCore.instance.damageExecutor.executePVEMelee(damager,sbEntity)
                 return
             }
 

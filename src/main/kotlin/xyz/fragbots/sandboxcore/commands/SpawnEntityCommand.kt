@@ -10,6 +10,7 @@ import xyz.fragbots.sandboxcore.api.extensions.PlayerExtensions.isStaff
 import xyz.fragbots.sandboxcore.entitites.mobs.SkyblockZombie
 import xyz.fragbots.sandboxcore.items.SkyblockItemIDS
 import xyz.fragbots.sandboxcore.utils.Utils
+import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 
 class SpawnEntityCommand : Command("spawnentity") {
     init {
@@ -20,7 +21,7 @@ class SpawnEntityCommand : Command("spawnentity") {
     override fun execute(sender: CommandSender, label: String, args: Array<out String>): Boolean {
         if(sender !is Player) return false
         if(sender.getStaffRank()!=Ranks.ADMIN){
-            sender.sendMessage(Utils.format("&cYou don't have permissions to run this command!"))
+            sender.sendFormattedMessage("&cYou don't have permissions to run this command!")
             return true
         }
         SkyblockZombie().spawn(sender.location)

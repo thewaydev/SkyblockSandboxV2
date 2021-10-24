@@ -1,5 +1,7 @@
 package xyz.fragbots.sandboxcore.items
 
+import org.bukkit.Bukkit
+import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.weapons.Hyperion
 
 /*
@@ -18,6 +20,7 @@ class SkyblockItemFactory {
 
     fun registerItem(skyblockItem: SkyblockItem) {
         registeredItems[skyblockItem.id] = skyblockItem
+        Bukkit.getPluginManager().registerEvents(skyblockItem, SandboxCore.instance)
     }
 
     fun getItem(id:String) : SkyblockItem? {

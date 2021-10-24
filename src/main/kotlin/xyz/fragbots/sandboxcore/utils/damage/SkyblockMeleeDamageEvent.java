@@ -3,20 +3,23 @@ package xyz.fragbots.sandboxcore.utils.damage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import xyz.fragbots.sandboxcore.entitites.SkyblockEntity;
 
 /*
  * Event Called before all PVE damage (For damage calculation and cancelling)
  * Coded in java for better hooking into bukkit
  */
-public class SkyblockDamageEvent extends Event {
+public class SkyblockMeleeDamageEvent extends Event {
     private final Player player;
+    private final SkyblockEntity entity;
     private boolean isCrit;
     private Double inititalDamage;
     private Double damageMultiplier;
     private Double armorMultiplier;
     private boolean isCancelled;
-    public SkyblockDamageEvent(Player player, Boolean isCrit, Double initialDamage, Double damageMultiplier, Double armorMultiplier) {
+    public SkyblockMeleeDamageEvent(Player player, SkyblockEntity entity, Boolean isCrit, Double initialDamage, Double damageMultiplier, Double armorMultiplier) {
         this.player = player;
+        this.entity = entity;
         this.isCrit = isCrit;
         this.inititalDamage = initialDamage;
         this.damageMultiplier = damageMultiplier;

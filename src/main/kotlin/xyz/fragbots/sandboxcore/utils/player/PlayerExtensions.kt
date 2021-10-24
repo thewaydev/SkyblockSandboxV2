@@ -1,6 +1,11 @@
 package xyz.fragbots.sandboxcore.utils.player
 
+import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.entitites.SkyblockEntity
+import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
 
 object PlayerExtensions {
@@ -16,5 +21,21 @@ object PlayerExtensions {
         //TODO Talismans/Pets
 
         return stats
+    }
+
+    fun Player.getNearbySkyblockEntities(x:Double,y:Double,z:Double): ArrayList<SkyblockEntity> {
+        val entities = getNearbyEntities(x,y,z).filter {SandboxCore.instance.entityManager.isSkyblockEntity(it as LivingEntity)}
+        val sbEntities = ArrayList<SkyblockEntity>()
+        entities.forEach {
+            val sbEntity = SandboxCore.instance.entityManager.getSkyblockEntity(it as LivingEntity)
+            if(sbEntity!=null){
+                sbEntities.add(sbEntity)
+            }
+        }
+        return sbEntities
+    }
+
+    fun Player.sendFormattedMessage(msg:String) {
+        sendMessage(Utils.format(msg))
     }
 }

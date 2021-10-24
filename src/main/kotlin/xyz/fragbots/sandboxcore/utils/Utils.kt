@@ -5,6 +5,8 @@ import org.bukkit.ChatColor
 import org.bukkit.Location
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
+import org.bukkit.entity.LivingEntity
+import org.bukkit.util.BlockIterator
 import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.SkyblockConsts
 
@@ -86,6 +88,38 @@ object Utils {
         },time)
     }
 
+    fun formatNumber(number: Number): String {
+        return  "%,d".format(number)
+    }
+
+    /**
+     * Raycasts `distance` blocks ahead and returns farthest non-solid block.
+     * Infix, cus it look fancy
+     * @author maxus
+     */
+    fun LivingEntity.raycast(distance: Int) : Location {
+        return try {
+            val eyes: Location = eyeLocation;
+            val iterator = BlockIterator(location, 1.0, distance)
+            while (iterator.hasNext()) {
+                val loc = iterator.next().location
+                if (loc.block.type.isSolid) {
+                    if (loc == location) return location
+                    loc.pitch = eyes.pitch
+                    loc.yaw = eyes.yaw
+                    loc.y = loc.y + 1
+                    return loc
+                }
+            }
+            val n: Location = eyeLocation.clone().add(eyeLocation.direction.multiply(distance))
+            n.pitch = eyes.pitch
+            n.yaw = eyes.yaw
+            n.y = n.y + 1
+            n
+        } catch (e: IllegalStateException) {
+            return location
+        }
+    }
     fun format(message: String): String {
         return ChatColor.translateAlternateColorCodes('&',message)
     }

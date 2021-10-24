@@ -11,6 +11,7 @@ import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
 import xyz.fragbots.sandboxcore.listeners.DamageListener
+import xyz.fragbots.sandboxcore.listeners.ItemListener
 import xyz.fragbots.sandboxcore.utils.damage.DamageExecutor
 
 /*
@@ -47,7 +48,8 @@ class SandboxCore : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        Bukkit.getPluginManager().registerEvents(DamageListener(),this)
+        Bukkit.getPluginManager().registerEvents(DamageListener(), this)
+        Bukkit.getPluginManager().registerEvents(ItemListener(), this)
 
         logger.info("Registered Listeners")
     }

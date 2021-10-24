@@ -1,10 +1,13 @@
 package xyz.fragbots.sandboxcore.utils
 
+import xyz.fragbots.sandboxcore.items.SkyblockItem
+import xyz.fragbots.sandboxcore.items.SkyblockItemAbility
 import xyz.fragbots.sandboxcore.items.SkyblockItemData
+import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
 class LoreGenerator(vararg val extraLore: String) {
-    fun generic(itemData: SkyblockItemData): Collection<String> {
+    fun generic(itemData: SkyblockItemData,playerStats: PlayerStats, itemInstance: SkyblockItem): Collection<String> {
         val finalLore = ArrayList<String>()
         var line = 0
 
@@ -106,6 +109,36 @@ class LoreGenerator(vararg val extraLore: String) {
 
         var addBreak3 = false
 
+        val ability1 = itemInstance.ability1
+        val ability2 = itemInstance.ability2
+        val ability3 = itemInstance.ability3
+
+        if(ability1!=null){
+            addBreak3 = true
+            finalLore.add(line, " "); line++
+            val abilityLore = generateAbilityLore(ability1,playerStats)
+            finalLore.addAll(line,abilityLore); line+=abilityLore.size
+        }
+
+        if(ability2!=null){
+            addBreak3 = true
+            finalLore.add(line, " "); line++
+            val abilityLore = generateAbilityLore(ability2,playerStats)
+            finalLore.addAll(line, abilityLore); line+=abilityLore.size
+        }
+
+        if(ability3!=null){
+            addBreak3 = true
+            finalLore.add(line, " "); line++
+            val abilityLore = generateAbilityLore(ability3,playerStats)
+            finalLore.addAll(line, abilityLore); line+=abilityLore.size
+        }
+
+        if(addBreak3) {
+            finalLore.add(line, " ")
+            line++;
+        }
+
         /*
          * Lore Generation: Ending
          */
@@ -123,5 +156,18 @@ class LoreGenerator(vararg val extraLore: String) {
         }
         finalLore.add(line, lastLine)
         return finalLore
+    }
+
+    fun generateAbilityLore(ability:SkyblockItemAbility, playerStats: PlayerStats):Collection<String>{
+        val lore = ArrayList<String>()
+        lore.add(Utils.format(ability.displayName))
+        lore.addAll(Utils.format(ability.getDescription(playerStats)).split("\n"))
+        if(ability.manaCost>0){
+            lore.add(Utils.format("&7Mana Cost: &3${ability.manaCost}"))
+        }
+        if(ability.cooldown>0){
+            lore.add(Utils.format("&7Cooldown: &a${ability.cooldown}s"))
+        }
+        return lore
     }
 }

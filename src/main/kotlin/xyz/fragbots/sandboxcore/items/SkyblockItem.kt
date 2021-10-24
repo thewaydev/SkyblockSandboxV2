@@ -3,29 +3,41 @@ package xyz.fragbots.sandboxcore.items
 import de.tr7zw.nbtapi.NBTItem
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import xyz.fragbots.sandboxcore.utils.Utils
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItemInstance
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.isSkyblockItem
+import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
 /*
     * Blueprint class for all items in skyblock
     * Heavily inspired by: https://github.com/KingRainbow44/SkyblockSandbox/blob/main/src/main/java/tk/skyblocksandbox/skyblocksandbox/item/SandboxItem.java
  */
-abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:String){
+abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:String) : Listener{
+
+    // Abilities
+    open var ability1: SkyblockItemAbility? = null
+    open var ability2: SkyblockItemAbility? = null
+    open var ability3: SkyblockItemAbility? = null
 
     /*
         * Creates the item with all the default values
         * Code taken from KingRainbow44's repo
      */
-    fun create():ItemStack{
+    fun create(playerStats: PlayerStats):ItemStack{
         val item: ItemStack = ItemStack(baseMat)
 
         val meta = item.itemMeta
         if (meta != null) {
             meta.spigot().isUnbreakable = true
-            meta.displayName = Utils.rarityToColor(getItemData(true).getRarity()).toString() + itemName
-            meta.lore = ArrayList(getLore())
+            meta.displayName = Utils.rarityToColor(getItemData(playerStats,true).getRarity()).toString() + itemName
+            meta.lore = ArrayList(getLore(playerStats))
             meta.addItemFlags(
                 ItemFlag.HIDE_ATTRIBUTES,
                 ItemFlag.HIDE_UNBREAKABLE,
@@ -35,22 +47,48 @@ abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:Stri
         }
         item.itemMeta = meta
 
-        addNbt(item)
+        addNbt(playerStats,  item)
 
         return item
+    }
+
+    open fun update(item:ItemStack, playerStats: PlayerStats){
+        val meta = item.itemMeta
+        meta.lore = ArrayList(getLore(playerStats,item))
+        item.itemMeta = meta
     }
 
     /*
         * Adds nbt data to all skyblock items
      */
-    fun addNbt(item:ItemStack){
+    fun addNbt(playerStats:PlayerStats, item:ItemStack){
         val itemNbt = NBTItem(item,true)
-        itemNbt.setString("itemData",SkyblockItemData.adapter.toJson(getItemData(true)))
+        itemNbt.setString("itemData",SkyblockItemData.adapter.toJson(getItemData(playerStats, true)))
+    }
+
+    val Player.holdingItem : Boolean
+        get() {
+            val item = itemInHand
+            if(item==null||item.type==Material.AIR){
+                return false
+            }
+            val sbItem = item.getSkyblockItemInstance() ?: return false
+            return sbItem.id == id
+        }
+
+    @EventHandler
+    fun abilityUserListener(event:PlayerInteractEvent){
+        val player = event.player
+        if(player.holdingItem){
+            abilityUse(event)
+        }
     }
 
     /*
         * Abstract Methods (All taken from KingRainbow44's Repository)
      */
+
+    open fun abilityUse(event:PlayerInteractEvent) {}
 
     open fun ability(action: Int, player: Player) {} // A 'null' method because not all items have an ability.
 
@@ -67,7 +105,15 @@ abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:Stri
     open fun onRemove(player: Player) {} // Called when a player removes/stops holding the item.
 
 
-    abstract fun getLore():Collection<String>
+    abstract fun getLore(playerStats: PlayerStats, itemStack: ItemStack?=null):Collection<String>
 
-    abstract fun getItemData(create:Boolean,item:ItemStack? = null):SkyblockItemData
+    open fun getItemData(playerStats: PlayerStats,create:Boolean,item:ItemStack? = null):SkyblockItemData {
+        if(create||item==null||!item.isSkyblockItem()) {
+            return getDefaultData(playerStats)
+        }else {
+            return item.getSkyblockItem() ?: return getDefaultData(playerStats)
+        }
+    }
+
+    abstract fun getDefaultData(playerStats: PlayerStats): SkyblockItemData
 }
