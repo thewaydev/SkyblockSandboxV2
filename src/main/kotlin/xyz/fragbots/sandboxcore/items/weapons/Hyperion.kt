@@ -1,22 +1,23 @@
 package xyz.fragbots.sandboxcore.items.weapons
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle
+import net.minecraft.server.v1_8_R3.World
+import org.bukkit.Color
+import org.bukkit.Effect
 import org.bukkit.Material
-import org.bukkit.entity.Entity
-import org.bukkit.entity.LivingEntity
-import org.bukkit.event.EventHandler
+import org.bukkit.Sound
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.*
-import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
-import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.isSkyblockItem
 import xyz.fragbots.sandboxcore.utils.LoreGenerator
 import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.Utils.raycast
 import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getNearbySkyblockEntities
 import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
+
 
 class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYPERION){
     override var ability1:SkyblockItemAbility? = SkyblockItemAbility("Wither Impact","&6Item Ability: Wither Impact &e&lRIGHT CLICK",
@@ -68,6 +69,8 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
         //Wither Impact Ability Code
         player.teleport(player.raycast(10))
         player.fallDistance = 0.0f
+        player.playSound(player.getLocation(), Sound.EXPLODE, 1f, 1f)
+        player.world.playEffect(player.location.add(0.0,1.0,0.0), Effect.EXPLOSION_LARGE, 1)
 
         var totalDamage:Long = 0
         val damagedEntities = player.getNearbySkyblockEntities(6.0,6.0,6.0)
@@ -81,9 +84,3 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
         //TODO Wither Shield
     }
 }
-
-
-
-
-
-
