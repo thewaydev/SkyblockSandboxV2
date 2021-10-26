@@ -115,21 +115,27 @@ class LoreGenerator(vararg val extraLore: String) {
 
         if(ability1!=null){
             addBreak3 = true
-            finalLore.add(line, " "); line++
+            if(finalLore[line].isNotBlank()){
+                finalLore.add(line, " "); line++
+            }
             val abilityLore = generateAbilityLore(ability1,playerStats)
             finalLore.addAll(line,abilityLore); line+=abilityLore.size
         }
 
         if(ability2!=null){
             addBreak3 = true
-            finalLore.add(line, " "); line++
+            if(finalLore[line].isNotBlank()){
+                finalLore.add(line, " "); line++
+            }
             val abilityLore = generateAbilityLore(ability2,playerStats)
             finalLore.addAll(line, abilityLore); line+=abilityLore.size
         }
 
         if(ability3!=null){
             addBreak3 = true
-            finalLore.add(line, " "); line++
+            if(finalLore[line].isNotBlank()){
+                finalLore.add(line, " "); line++
+            }
             val abilityLore = generateAbilityLore(ability3,playerStats)
             finalLore.addAll(line, abilityLore); line+=abilityLore.size
         }
