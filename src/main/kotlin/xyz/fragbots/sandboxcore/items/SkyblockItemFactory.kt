@@ -13,7 +13,6 @@ class SkyblockItemFactory {
     val registeredItems = HashMap<String,SkyblockItem>()
 
     init {
-
         //Weapons
 
         registerItem(Hyperion())
