@@ -18,6 +18,7 @@ class ItemCommand : Command("item"){
     }
     override fun execute(sender: CommandSender, label: String, args: Array<out String>): Boolean {
         if(sender !is Player) return false
+        sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.AOTE)?.create(sender.getStats()))
         sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.HYPERION)?.create(sender.getStats()))
         return true
     }
