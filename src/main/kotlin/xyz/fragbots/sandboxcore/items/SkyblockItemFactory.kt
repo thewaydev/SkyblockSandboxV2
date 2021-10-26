@@ -2,6 +2,7 @@ package xyz.fragbots.sandboxcore.items
 
 import org.bukkit.Bukkit
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.items.weapons.Aote
 import xyz.fragbots.sandboxcore.items.weapons.Hyperion
 
 /*
@@ -16,6 +17,7 @@ class SkyblockItemFactory {
         //Weapons
 
         registerItem(Hyperion())
+        registerItem(Aote())
     }
 
     fun registerItem(skyblockItem: SkyblockItem) {
