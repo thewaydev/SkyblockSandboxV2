@@ -23,4 +23,11 @@ class SkyblockEntityManager {
     fun getSkyblockEntity(entity: LivingEntity):SkyblockEntity? {
         return entities[entity.entityId]
     }
+
+    fun killAll() {
+        for(entity in entities) {
+            entity.value.entity?.remove()
+        }
+        entities.clear()
+    }
 }

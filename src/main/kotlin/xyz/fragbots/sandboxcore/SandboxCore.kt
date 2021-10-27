@@ -10,9 +10,7 @@ import xyz.fragbots.sandboxcore.commands.ItemCommand
 import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
-import xyz.fragbots.sandboxcore.listeners.DamageListener
-import xyz.fragbots.sandboxcore.listeners.InventoryListener
-import xyz.fragbots.sandboxcore.listeners.ItemListener
+import xyz.fragbots.sandboxcore.listeners.*
 import xyz.fragbots.sandboxcore.utils.damage.DamageExecutor
 
 /*
@@ -29,7 +27,9 @@ class SandboxCore : JavaPlugin() {
         registerCommands()
         registerListeners()
     }
-
+    override fun onDisable() {
+        entityManager.killAll()
+    }
     private fun loadClasses() {
         instance = this
         moshi = Moshi.Builder()
@@ -52,6 +52,8 @@ class SandboxCore : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(DamageListener(), this)
         Bukkit.getPluginManager().registerEvents(ItemListener(), this)
         Bukkit.getPluginManager().registerEvents(InventoryListener(), this)
+        Bukkit.getPluginManager().registerEvents(EntityListener(), this)
+        Bukkit.getPluginManager().registerEvents(TeleportListener(), this)
 
         logger.info("Registered Listeners")
     }

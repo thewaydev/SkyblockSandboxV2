@@ -18,10 +18,40 @@ class DamageExecutor {
         val initialDamage:Double = (5.0+playerStats.damage.toDouble())*(1.0+(playerStats.strength.toDouble()/100.0))
         val damageMultiplier = 1.0/*+(Combat Level)+Enchants*/
         val armorBonus = 1.0
-        val isCrit = (Random.nextInt(0,100)>=playerStats.critChance)
+        val isCrit = (Random.nextInt(0,100)<=playerStats.critChance)
         val event = SkyblockMeleeDamageEvent(
             damager,
             damagee,
+            isCrit,
+            initialDamage,
+            damageMultiplier,
+            armorBonus
+        )
+        Bukkit.getPluginManager().callEvent(event)
+        if(!event.isCancelled){
+            var damage = event.inititalDamage*event.damageMultiplier*event.armorMultiplier
+            if(event.isCrit){
+                damage*=(1+(playerStats.critDamage/100))
+            }
+            val finalDamage = damage.toLong()
+            createDmgHolo(mob.location,finalDamage,event.isCrit)
+            damagee.damage(finalDamage)
+            return finalDamage
+        }
+        return 0
+    }
+
+    fun executePveRanged(damager: Player, damagee: SkyblockEntity, canCrit: Boolean): Long{
+        val mob = damagee.entity ?: return 0
+        val playerStats: PlayerStats = damager.getStats()
+        val initialDamage:Double = (5.0+playerStats.damage.toDouble())*(1.0+(playerStats.strength.toDouble()/100.0))
+        val damageMultiplier = 1.0/*+(Combat Level)+Enchants*/
+        val armorBonus = 1.0
+        val isCrit = if(canCrit) (Random.nextInt(0,100)<=playerStats.critChance) else false
+        val event = SkyblockRangedDamageEvent(
+            damager,
+            damagee,
+            canCrit,
             isCrit,
             initialDamage,
             damageMultiplier,

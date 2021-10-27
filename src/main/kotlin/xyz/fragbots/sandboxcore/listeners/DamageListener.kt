@@ -1,5 +1,6 @@
 package xyz.fragbots.sandboxcore.listeners
 
+import org.bukkit.entity.Arrow
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -22,9 +23,10 @@ class DamageListener : Listener{
             val damager: Entity = entityEvent.damager
             val damagee: Entity = entityEvent.entity
 
-            /*
+            /**
              * Scenario Breakdown:
              * - SBEntity damaged by Player (PvE)
+             * - SBEntity damaged by Arrow shot by Player (PAvE)
              * - Player damaged by SBEntity (PvE)
              */
 
@@ -38,7 +40,23 @@ class DamageListener : Listener{
                 return
             }
 
+            /**
+             * 2nd Scenario SbEntity damaged by Arrow shot by Player
+             */
+            if(damager is Arrow && damagee.hasMetadata("sbEntityId")){
+                event.damage = 0.0
+                val shooter = damager.shooter
+                if(shooter !is Player) return
+                val canCrit = damager.isCritical
+                val sbEntity = SandboxCore.instance.entityManager.getSkyblockEntity(damagee as LivingEntity) ?: return
+                SandboxCore.instance.damageExecutor.executePveRanged(shooter,sbEntity,canCrit)
+                return
+            }
+
+
+
         }
+
         event.isCancelled = true
     }
 }
