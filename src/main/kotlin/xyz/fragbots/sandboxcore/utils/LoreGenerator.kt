@@ -115,7 +115,7 @@ class LoreGenerator(vararg val extraLore: String) {
 
         if(ability1!=null){
             addBreak3 = true
-            if(finalLore[line].isNotBlank()){
+            if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
             val abilityLore = generateAbilityLore(ability1,playerStats)
@@ -124,7 +124,7 @@ class LoreGenerator(vararg val extraLore: String) {
 
         if(ability2!=null){
             addBreak3 = true
-            if(finalLore[line].isNotBlank()){
+            if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
             val abilityLore = generateAbilityLore(ability2,playerStats)
@@ -133,7 +133,7 @@ class LoreGenerator(vararg val extraLore: String) {
 
         if(ability3!=null){
             addBreak3 = true
-            if(finalLore[line].isNotBlank()){
+            if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
             val abilityLore = generateAbilityLore(ability3,playerStats)
