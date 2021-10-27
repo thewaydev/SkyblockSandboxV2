@@ -1,4 +1,4 @@
-package xyz.fragbots.sandboxcore.api.data
+package xyz.fragbots.sandboxcore.backend.data
 
 enum class Ranks(val prefix:String,val namecolor:String) {
     DEFAULT("","&7"),

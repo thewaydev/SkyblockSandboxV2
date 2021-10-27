@@ -1,4 +1,4 @@
-package xyz.fragbots.sandboxcore.api.data
+package xyz.fragbots.sandboxcore.backend.data
 
 import java.util.*
 

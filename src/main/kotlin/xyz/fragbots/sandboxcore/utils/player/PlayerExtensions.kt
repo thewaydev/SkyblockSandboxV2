@@ -4,6 +4,9 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.backend.SandboxBackend
+import xyz.fragbots.sandboxcore.backend.data.Ranks
+import xyz.fragbots.sandboxcore.backend.data.SandboxPlayer
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntity
 import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
@@ -37,5 +40,24 @@ object PlayerExtensions {
 
     fun Player.sendFormattedMessage(msg:String) {
         sendMessage(Utils.format(msg))
+    }
+
+    fun Player.getSbPlayer(): SandboxPlayer {
+        return SandboxBackend.getPlayer(uniqueId.toString())
+    }
+    fun Player.isStaff():Boolean {
+        return getStaffRank()!= Ranks.DEFAULT
+    }
+    fun Player.getStaffRank(): Ranks {
+        return getSbPlayer().staffRank
+    }
+    fun Player.getPlayerRank(): Ranks {
+        return getSbPlayer().playerRank
+    }
+    fun Player.getHighestRank(): Ranks {
+        if(!isStaff()){
+            return getPlayerRank()
+        }
+        return getStaffRank()
     }
 }

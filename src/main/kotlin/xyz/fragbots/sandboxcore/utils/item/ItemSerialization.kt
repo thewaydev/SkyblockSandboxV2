@@ -1,6 +1,7 @@
 package de.thehellscode.core.util;
 
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
@@ -14,6 +15,7 @@ import java.io.IOException
 /*https://gist.github.com/graywolf336/8153678*/
 
 object ItemSerialization {
+
     /**
      * Converts the player inventory to a String array of Base64 strings. First string is the content and second string is the armor.
      *
@@ -21,12 +23,13 @@ object ItemSerialization {
      * @return Array of strings: [ main content, armor content ]
      * @throws IllegalStateException
      */
-    @Throws(IllegalStateException::class)
-    fun playerInventoryToBase64(playerInventory: PlayerInventory): Array<String> {
+    fun playerInventoryToBase64(playerInventory: PlayerInventory): String? {
         //get the main content part, this doesn't return the armor
-        val content = toBase64(playerInventory)
-        val armor = itemStackArrayToBase64(playerInventory.armorContents)
-        return arrayOf(content, armor)
+        return toBase64(playerInventory)
+    }
+
+    fun playerArmorToBase64(playerInventory: PlayerInventory) : String? {
+        return itemStackArrayToBase64(playerInventory.armorContents)
     }
 
     /**
@@ -42,8 +45,7 @@ object ItemSerialization {
      * @return Base64 string of the items.
      * @throws IllegalStateException
      */
-    @Throws(IllegalStateException::class)
-    fun itemStackArrayToBase64(items: Array<ItemStack?>): String {
+    private fun itemStackArrayToBase64(items: Array<ItemStack?>): String? {
         return try {
             val outputStream = ByteArrayOutputStream()
             val dataOutput = BukkitObjectOutputStream(outputStream)
@@ -60,7 +62,7 @@ object ItemSerialization {
             dataOutput.close()
             Base64Coder.encodeLines(outputStream.toByteArray())
         } catch (e: Exception) {
-            throw IllegalStateException("Unable to save item stacks.", e)
+            null
         }
     }
 
@@ -79,8 +81,7 @@ object ItemSerialization {
      * @return Base64 string of the provided inventory
      * @throws IllegalStateException
      */
-    @Throws(IllegalStateException::class)
-    fun toBase64(inventory: Inventory): String {
+    private fun toBase64(inventory: Inventory): String? {
         return try {
             val outputStream = ByteArrayOutputStream()
             val dataOutput = BukkitObjectOutputStream(outputStream)
@@ -97,7 +98,7 @@ object ItemSerialization {
             dataOutput.close()
             Base64Coder.encodeLines(outputStream.toByteArray())
         } catch (e: Exception) {
-            throw IllegalStateException("Unable to save item stacks.", e)
+            null
         }
     }
 
@@ -117,7 +118,6 @@ object ItemSerialization {
      * @return Inventory created from the Base64 string.
      * @throws IOException
      */
-    @Throws(IOException::class)
     fun fromBase64(data: String?): Inventory? {
         return try {
             val inputStream = ByteArrayInputStream(Base64Coder.decodeLines(data))
@@ -131,7 +131,7 @@ object ItemSerialization {
             dataInput.close()
             inventory
         } catch (e: ClassNotFoundException) {
-            throw IOException("Unable to decode class type.", e)
+            null
         }
     }
 
@@ -147,21 +147,24 @@ object ItemSerialization {
      * @return ItemStack array created from the Base64 string.
      * @throws IOException
      */
-    @Throws(IOException::class)
-    fun itemStackArrayFromBase64(data: String?): Array<ItemStack?>? {
+    fun itemStackArrayFromBase64(data: String): ArrayList<ItemStack>? {
         return try {
             val inputStream = ByteArrayInputStream(Base64Coder.decodeLines(data))
             val dataInput = BukkitObjectInputStream(inputStream)
-            val items = arrayOfNulls<ItemStack>(dataInput.readInt())
+            val size = dataInput.readInt()
+            val items = ArrayList<ItemStack>()
 
-            // Read the serialized inventory
-            for (i in items.indices) {
-                items[i] = dataInput.readObject() as ItemStack
+            for ( i in 0 until size) {
+                try {
+                    items.add(dataInput.readObject() as ItemStack)
+                }catch (e:Exception){
+                    items.add(ItemStack(Material.AIR))
+                }
             }
             dataInput.close()
             items
         } catch (e: ClassNotFoundException) {
-            throw IOException("Unable to decode class type.", e)
+            null
         }
     }
 

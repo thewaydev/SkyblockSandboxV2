@@ -3,13 +3,9 @@ package xyz.fragbots.sandboxcore.commands
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import xyz.fragbots.sandboxcore.SandboxCore
-import xyz.fragbots.sandboxcore.api.data.Ranks
-import xyz.fragbots.sandboxcore.api.extensions.PlayerExtensions.getStaffRank
-import xyz.fragbots.sandboxcore.api.extensions.PlayerExtensions.isStaff
+import xyz.fragbots.sandboxcore.backend.data.Ranks
 import xyz.fragbots.sandboxcore.entitites.mobs.SkyblockZombie
-import xyz.fragbots.sandboxcore.items.SkyblockItemIDS
-import xyz.fragbots.sandboxcore.utils.Utils
+import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getStaffRank
 import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 
 class SpawnEntityCommand : Command("spawnentity") {
