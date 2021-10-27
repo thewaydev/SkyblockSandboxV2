@@ -78,7 +78,7 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
             for (mob in damagedEntities) {
                 totalDamage+=SandboxCore.instance.damageExecutor.executePVEMagic(player,mob,ability1!!)
             }
-            player.sendFormattedMessage("&7Your implosion hit &c${damagedEntities.size} &7enemies for &c${Utils.formatNumber(totalDamage)} &7damage.")
+            player.sendFormattedMessage("&7Your Implosion hit &c${damagedEntities.size} &7enemies for &c${Utils.formatNumber(totalDamage)} &7damage.")
         }
 
         //TODO Wither Shield
