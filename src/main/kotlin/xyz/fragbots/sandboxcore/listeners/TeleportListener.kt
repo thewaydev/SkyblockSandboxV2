@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityPortalEvent
 class TeleportListener : Listener {
     @EventHandler
     fun portalEvent(e: EntityPortalEvent){
-        if(e.entity !is Player){
+        if(e.entity is Player){
             e.isCancelled = true
         }
     }
