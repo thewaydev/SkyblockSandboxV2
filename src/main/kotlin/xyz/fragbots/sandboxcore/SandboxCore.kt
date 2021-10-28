@@ -11,6 +11,9 @@ import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
 import xyz.fragbots.sandboxcore.listeners.*
+import xyz.fragbots.sandboxcore.listeners.ranks.ChatListener
+import xyz.fragbots.sandboxcore.listeners.ranks.LogOutListener
+import xyz.fragbots.sandboxcore.listeners.ranks.TabPrefixListener
 import xyz.fragbots.sandboxcore.utils.damage.DamageExecutor
 
 /*
@@ -54,6 +57,10 @@ class SandboxCore : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(InventoryListener(), this)
         Bukkit.getPluginManager().registerEvents(EntityListener(), this)
         Bukkit.getPluginManager().registerEvents(TeleportListener(), this)
+        Bukkit.getPluginManager().registerEvents(PlayerJoinListener(), this)
+        Bukkit.getPluginManager().registerEvents(ChatListener(), this)
+        Bukkit.getPluginManager().registerEvents(LogOutListener(), this)
+        Bukkit.getPluginManager().registerEvents(TabPrefixListener(), this)
 
         logger.info("Registered Listeners")
     }
