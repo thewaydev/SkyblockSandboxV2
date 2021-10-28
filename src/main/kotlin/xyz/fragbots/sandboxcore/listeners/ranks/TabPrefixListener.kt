@@ -18,6 +18,13 @@ class TabPrefixListener(): Listener {
     val vipTeam = scoreboardManager.registerNewTeam("d_vip")
     val defaultTeam = scoreboardManager.registerNewTeam("e_default")
 
+    init {
+        adminTeam.prefix = Utils.format(Ranks.ADMIN.namecolor)
+        modTeam.prefix = Utils.format(Ranks.MOD.namecolor)
+        helperTeam.prefix = Utils.format(Ranks.HELPER.namecolor)
+        vipTeam.prefix = Utils.format(Ranks.VIP.namecolor)
+        defaultTeam.prefix = Utils.format(Ranks.DEFAULT.namecolor)
+    }
     @EventHandler
     fun login(event:PlayerJoinEvent){
         Bukkit.getScheduler().runTaskAsynchronously(SandboxCore.instance) {
