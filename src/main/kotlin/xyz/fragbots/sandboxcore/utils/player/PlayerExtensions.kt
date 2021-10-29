@@ -1,6 +1,8 @@
 package xyz.fragbots.sandboxcore.utils.player
 
-import org.bukkit.entity.Entity
+import net.minecraft.server.v1_8_R3.IChatBaseComponent
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import xyz.fragbots.sandboxcore.SandboxCore
@@ -10,6 +12,7 @@ import xyz.fragbots.sandboxcore.backend.data.SandboxPlayer
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntity
 import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
+
 
 object PlayerExtensions {
     fun Player.getStats():PlayerStats {
@@ -36,6 +39,13 @@ object PlayerExtensions {
             }
         }
         return sbEntities
+    }
+
+    fun Player.sendActionBarMessage(message: String) {
+        val craftPlayer = (this as CraftPlayer)
+        val cbc = IChatBaseComponent.ChatSerializer.a("{\"text\": \"${Utils.format(message)}\"}")
+        val ppoc = PacketPlayOutChat(cbc, 2.toByte())
+        craftPlayer.handle.playerConnection.sendPacket(ppoc)
     }
 
     fun Player.sendFormattedMessage(msg:String) {

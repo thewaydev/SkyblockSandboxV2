@@ -15,6 +15,8 @@ import xyz.fragbots.sandboxcore.listeners.ranks.ChatListener
 import xyz.fragbots.sandboxcore.listeners.ranks.LogOutListener
 import xyz.fragbots.sandboxcore.listeners.ranks.TabPrefixListener
 import xyz.fragbots.sandboxcore.utils.damage.DamageExecutor
+import xyz.fragbots.sandboxcore.utils.player.ActionBarManager
+import xyz.fragbots.sandboxcore.utils.player.DynamicStatManager
 
 /*
     * Main plugin for the sandbox core, starts all the other processes
@@ -25,6 +27,9 @@ class SandboxCore : JavaPlugin() {
     lateinit var itemFactory:SkyblockItemFactory
     lateinit var entityManager:SkyblockEntityManager
     lateinit var damageExecutor: DamageExecutor
+    lateinit var dynamicStatManager: DynamicStatManager
+    lateinit var actionBarManager: ActionBarManager
+
     override fun onEnable() {
         loadClasses()
         registerCommands()
@@ -41,6 +46,9 @@ class SandboxCore : JavaPlugin() {
         itemFactory = SkyblockItemFactory()
         entityManager = SkyblockEntityManager()
         damageExecutor = DamageExecutor()
+        dynamicStatManager = DynamicStatManager()
+        actionBarManager = ActionBarManager()
+
         logger.info("Loaded Sandbox Core variables")
     }
 
@@ -61,6 +69,7 @@ class SandboxCore : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(ChatListener(), this)
         Bukkit.getPluginManager().registerEvents(LogOutListener(), this)
         Bukkit.getPluginManager().registerEvents(TabPrefixListener(), this)
+        Bukkit.getPluginManager().registerEvents(dynamicStatManager, this)
 
         logger.info("Registered Listeners")
     }
