@@ -1,8 +1,4 @@
 package xyz.fragbots.sandboxcore.items.weapons
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle
-import net.minecraft.server.v1_8_R3.World
-import org.bukkit.Color
 import org.bukkit.Effect
 import org.bukkit.Material
 import org.bukkit.Sound

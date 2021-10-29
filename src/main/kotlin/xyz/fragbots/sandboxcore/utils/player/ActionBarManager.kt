@@ -18,12 +18,12 @@ class ActionBarManager {
     fun generateLore(player:Player): String{
         val stats = player.getStats()
         val dynStatManager = SandboxCore.instance.dynamicStatManager
-        val healthString = "&c❤${dynStatManager.getHealth(player)}/${stats.health}"
+        val healthString = "&c${dynStatManager.getHealth(player)}/${stats.health}❤"
         var midString = ""
         if(stats.defense!=0.toLong()){
-            midString = "    &a❈${stats.defense}"
+            midString = "    &a❈${stats.defense} Defense"
         }
-        val intelString = "    &b✎${dynStatManager.getIntel(player)}/${stats.intel}"
+        val intelString = "    &b${dynStatManager.getIntel(player)}/${stats.intel}✎"
         return healthString+midString+intelString
     }
 
