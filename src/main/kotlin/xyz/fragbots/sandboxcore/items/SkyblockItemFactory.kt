@@ -3,7 +3,9 @@ package xyz.fragbots.sandboxcore.items
 import org.bukkit.Bukkit
 import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.weapons.Aote
+import xyz.fragbots.sandboxcore.items.weapons.Giant_Sword
 import xyz.fragbots.sandboxcore.items.weapons.Hyperion
+import xyz.fragbots.sandboxcore.items.weapons.Juju
 
 /*
  * Registers and manages all the skyblock item instances
@@ -17,6 +19,8 @@ class SkyblockItemFactory {
 
         registerItem(Hyperion())
         registerItem(Aote())
+        registerItem(Juju())
+        registerItem(Giant_Sword())
     }
 
     fun registerItem(skyblockItem: SkyblockItem) {

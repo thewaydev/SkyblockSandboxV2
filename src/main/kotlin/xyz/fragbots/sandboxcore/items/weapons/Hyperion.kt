@@ -20,16 +20,11 @@ import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
 class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYPERION){
-    override var ability1:SkyblockItemAbility? = SkyblockItemAbility("Wither Impact","&6Item Ability: Wither Impact &e&lRIGHT CLICK",
-    "&7Teleport &a10 Blocks &7ahead of\n" +
-            "&7you. Then implode dealing\n" +
-            "&c%%dmg%%&7 damage to nearby\n" +
-            "&7enemies. Also applies the wither\n" +
-            "&7shield scroll ability reducing\n" +
-            "&7damage taken and granting an\n" +
-            "&7absorption shield for &e5\n" +
-            "&7seconds",
-    300,0,10000,0.3)
+    override var ability1:SkyblockItemAbility? = SkyblockItemAbility(
+        "Wither Impact","Wither Impact", "&6Item Ability: Wither Impact &e&lRIGHT CLICK",
+        300,
+        0, 10000, 0.3
+    )
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
         return LoreGenerator(
