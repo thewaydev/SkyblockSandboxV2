@@ -28,6 +28,10 @@ class SkyblockItemFactory {
         Bukkit.getPluginManager().registerEvents(skyblockItem, SandboxCore.instance)
     }
 
+    fun getItems(): List<SkyblockItem> {
+        return registeredItems.values.toList()
+    }
+
     fun getItem(id:String) : SkyblockItem? {
         return registeredItems[id]
     }

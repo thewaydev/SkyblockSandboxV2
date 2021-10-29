@@ -2,6 +2,7 @@ package xyz.fragbots.sandboxcore
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import fr.minuskube.inv.InventoryManager
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer
@@ -29,7 +30,7 @@ class SandboxCore : JavaPlugin() {
     lateinit var damageExecutor: DamageExecutor
     lateinit var dynamicStatManager: DynamicStatManager
     lateinit var actionBarManager: ActionBarManager
-
+    lateinit var inventoryManager: InventoryManager
     override fun onEnable() {
         loadClasses()
         registerCommands()
@@ -48,6 +49,8 @@ class SandboxCore : JavaPlugin() {
         damageExecutor = DamageExecutor()
         dynamicStatManager = DynamicStatManager()
         actionBarManager = ActionBarManager()
+        inventoryManager = InventoryManager(this)
+        inventoryManager.init()
 
         logger.info("Loaded Sandbox Core variables")
     }

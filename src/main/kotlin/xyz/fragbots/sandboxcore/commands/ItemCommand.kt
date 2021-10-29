@@ -7,6 +7,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.guis.ItemsGUI
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
 import xyz.fragbots.sandboxcore.items.SkyblockItemIDS
 import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getStats
@@ -19,10 +20,7 @@ class ItemCommand : Command("item"){
     }
     override fun execute(sender: CommandSender, label: String, args: Array<out String>): Boolean {
         if(sender !is Player) return false
-        sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.AOTE)?.create(sender.getStats()))
-        sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.HYPERION)?.create(sender.getStats()))
-        sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.JUJUSHORTBOW)?.create(sender.getStats()))
-        sender.inventory.addItem(SandboxCore.instance.itemFactory.getItem(SkyblockItemIDS.GIANTSWORD)?.create(sender.getStats()))
+        ItemsGUI.getInventory().open(sender)
         return true
     }
 }

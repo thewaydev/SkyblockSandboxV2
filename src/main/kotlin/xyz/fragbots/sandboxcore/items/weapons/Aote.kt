@@ -47,11 +47,16 @@ class Aote : SkyblockItem(Material.DIAMOND_SWORD,"Aspect Of The End",SkyblockIte
         if(action != Action.RIGHT_CLICK_BLOCK && action!=Action.RIGHT_CLICK_AIR) {
             return
         }
+        if(!canUseAbility(player,ability1!!)) return sendManaMessage(player)
+
+
+        //Aote Ability Code
 
         player.teleport(player.raycast(8))
         player.fallDistance = 0.0f
-        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1f, 1f)
+        player.playSound(player.location, Sound.ENDERMAN_TELEPORT, 1f, 1f)
 
+        abilityUsed(player,ability1!!)
     }
 
 }
