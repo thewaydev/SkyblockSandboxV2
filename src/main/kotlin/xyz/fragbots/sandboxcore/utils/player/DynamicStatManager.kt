@@ -28,9 +28,9 @@ class DynamicStatManager : Listener {
                 val player = set.key
                 val stats = set.value
                 if(rCounter==1){
-                    addHealth(player,2+(stats.health.toDouble()*0.01).toLong())
+                    addHealth(player,2+(player.getStats().health.toDouble()*0.01).toLong())
                 }
-                addIntel(player,(stats.intel.toDouble()*0.02).toLong())
+                addIntel(player,(player.getStats().intel.toDouble()*0.02).toLong())
             }
             if(rCounter==1){
                 rCounter=-1
@@ -58,10 +58,18 @@ class DynamicStatManager : Listener {
         stats.intel = (stats.intel + mana).coerceAtMost(player.getStats().intel)
     }
 
+    fun removeIntel(player:Player, intel: Long) {
+        val stats = players[player] ?: return
+        stats.intel = (stats.intel - intel).coerceAtLeast(0)
+    }
+
     @EventHandler
     fun playerJoin(event:PlayerLoginEvent) {
-        val player = event.player
-        players[player] = DynamicStats(player.getStats().health,player.getStats().intel,0)
+        //Doesn't count items in hand/armor if you don't do this
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SandboxCore.instance, {
+            val player = event.player
+            players[player] = DynamicStats(player.getStats().health,player.getStats().intel,0)
+        }, 5)
     }
 
     @EventHandler

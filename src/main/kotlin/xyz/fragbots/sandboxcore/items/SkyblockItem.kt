@@ -14,6 +14,7 @@ import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItemInstance
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.isSkyblockItem
+import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 import java.util.*
 import kotlin.collections.ArrayList
@@ -91,6 +92,21 @@ abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:Stri
     /*
         * Abstract Methods (All taken from KingRainbow44's Repository)
      */
+
+    fun canUseAbility(player:Player, ability:SkyblockItemAbility) : Boolean {
+        val dynStats = SandboxCore.instance.dynamicStatManager
+        val currentIntel = dynStats.getIntel(player)
+        return currentIntel>=ability.manaCost
+    }
+
+    fun sendManaMessage(player:Player) {
+        player.sendFormattedMessage("&cYou do not have enough mana to do this!")
+    }
+
+    fun abilityUsed(usedBy:Player, ability: SkyblockItemAbility) {
+        SandboxCore.instance.actionBarManager.setAbilityUsed(usedBy,ability)
+        SandboxCore.instance.dynamicStatManager.removeIntel(usedBy,ability.manaCost.toLong())
+    }
 
     open fun abilityUse(event:PlayerInteractEvent) {}
 

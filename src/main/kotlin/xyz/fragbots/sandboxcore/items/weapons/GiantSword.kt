@@ -26,10 +26,10 @@ class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItem
     override var ability1:SkyblockItemAbility? = SkyblockItemAbility(
         "Giant's Slam","&6Item Ability: Giant's Slam &e&lRIGHT CLICK ",
         "&7Slam Your Sword into the ground \n" +
-                "&7dealing &c&k%%dmg%% &7damage to\n" +
+                "&7dealing &c%%dmg%% &7damage to\n" +
                 "&7nearby enemies.",
         100,
-        30, 10000,9.6
+        30, 100000,0.05
     )
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
@@ -63,9 +63,6 @@ class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItem
         compound.setByte("NoAI", 1.toByte())
         nmsEn.f(compound)
     }
-    fun Player.location(world: org.bukkit.World, x: Double, y: Double, z: Double): Location? {
-        return player.getLocation()
-    }
 
     override fun abilityUse(event: PlayerInteractEvent) {
         val player = event.player
@@ -74,11 +71,12 @@ class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItem
             return
         }
 
-        val giant = player.world.spawnEntity(player.location(player.world,player.location.x,player.location.y,player.location.z), EntityType.GIANT) as LivingEntity
+        if(!canUseAbility(player,ability1!!)) return sendManaMessage(player)
+
+        //Giant Sword Ability Code
+
+        val giant = player.world.spawnEntity(Location(player.world,player.location.x, player.location.y+1, player.location.z, 0f, 0f), EntityType.GIANT) as LivingEntity
         giant.addPotionEffect(PotionEffect(PotionEffectType.INVISIBILITY,1000,1))
-        var giantPos = giant.location.add(0.0,1.0,0.0)
-        giantPos = Location(giantPos.world,giantPos.x,giantPos.y,giantPos.z,giant.location.yaw,giant.location.pitch)
-        giant.teleport(giantPos)
         giant.customName = "Dinnerbone"
         giant.equipment.itemInHand = ItemStack(Material.IRON_SWORD)
         setInvulnerable(giant)
@@ -93,6 +91,9 @@ class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItem
             }
             player.sendFormattedMessage("&7Your Giant's Sword hit &c${damagedEntities.size} &7enemies for &c${Utils.formatNumber(totalDamage)} &7damage.")
         }
+
+        abilityUsed(player,ability1!!)
+
         object : BukkitRunnable() {
             override fun run() {
                 giant.remove()
