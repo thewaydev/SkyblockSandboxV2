@@ -166,7 +166,7 @@ class LoreGenerator(vararg val extraLore: String) {
 
     fun generateAbilityLore(ability:SkyblockItemAbility, playerStats: PlayerStats):Collection<String>{
         val lore = ArrayList<String>()
-        lore.add(Utils.format(ability.displayName))
+        lore.addAll(Utils.format(ability.displayName).split("\n"))
         lore.addAll(Utils.format(ability.getDescription(playerStats)).split("\n"))
         if(ability.manaCost>0){
             lore.add(Utils.format("&7Mana Cost: &3${ability.manaCost}"))

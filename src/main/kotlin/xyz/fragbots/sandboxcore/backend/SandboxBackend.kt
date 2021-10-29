@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import net.dongliu.requests.Requests
 import org.bukkit.Bukkit
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.api.APIConfig
 import xyz.fragbots.sandboxcore.backend.data.SandboxInventory
 
 object SandboxBackend {

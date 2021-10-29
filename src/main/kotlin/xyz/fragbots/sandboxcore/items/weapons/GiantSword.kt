@@ -22,9 +22,12 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 
-class Giant_Sword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItemIDS.GIANT_SWORD){
+class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItemIDS.GIANTSWORD){
     override var ability1:SkyblockItemAbility? = SkyblockItemAbility(
-        "Giant's Slam","Giant's Slam", "&6Item Ability: Giant's Slam &e&lRIGHT CLICK \n&7Slam Your Sword into the ground \n&7dealing &c100,000 &7damage to\n&7nearby enemies.",
+        "Giant's Slam","&6Item Ability: Giant's Slam &e&lRIGHT CLICK ",
+        "&7Slam Your Sword into the ground \n" +
+                "&7dealing &c&k%%dmg%% &7damage to\n" +
+                "&7nearby enemies.",
         100,
         30, 10000,9.6
     )
@@ -40,11 +43,28 @@ class Giant_Sword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockIte
         data.rarity = SkyblockConsts.LEGENDARY
         data.itemType = SkyblockConsts.SWORD
         data.reforgeable = true
-        data.dungeonitem = true
+        data.dungeonitem = false
 
         data.baseDamage = 500
 
         return data
+    }
+    fun setInvulnerable(en: Entity) {
+        val nmsEn = (en as CraftEntity).handle
+        val compound = NBTTagCompound()
+        nmsEn.c(compound)
+        compound.setByte("Invulnerable", 1.toByte())
+        nmsEn.f(compound)
+    }
+    fun freezeEntity(en: Entity) {
+        val nmsEn = (en as CraftEntity).handle
+        val compound = NBTTagCompound()
+        nmsEn.c(compound)
+        compound.setByte("NoAI", 1.toByte())
+        nmsEn.f(compound)
+    }
+    fun Player.location(world: org.bukkit.World, x: Double, y: Double, z: Double): Location? {
+        return player.getLocation()
     }
 
     override fun abilityUse(event: PlayerInteractEvent) {
@@ -52,24 +72,6 @@ class Giant_Sword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockIte
         val action = event.action
         if(action != Action.RIGHT_CLICK_BLOCK && action!=Action.RIGHT_CLICK_AIR) {
             return
-        }
-
-        fun setInvulnerable(en: Entity) {
-            val nmsEn = (en as CraftEntity).handle
-            val compound = NBTTagCompound()
-            nmsEn.c(compound)
-            compound.setByte("Invulnerable", 1.toByte())
-            nmsEn.f(compound)
-        }
-        fun freezeEntity(en: Entity) {
-            val nmsEn = (en as CraftEntity).handle
-            val compound = NBTTagCompound()
-            nmsEn.c(compound)
-            compound.setByte("NoAI", 1.toByte())
-            nmsEn.f(compound)
-        }
-        fun Player.location(world: org.bukkit.World, x: Double, y: Double, z: Double): Location? {
-            return player.getLocation()
         }
 
         val giant = player.world.spawnEntity(player.location(player.world,player.location.x,player.location.y,player.location.z), EntityType.GIANT) as LivingEntity

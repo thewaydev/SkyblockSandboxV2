@@ -6,6 +6,6 @@ package xyz.fragbots.sandboxcore.items
 object SkyblockItemIDS {
     val HYPERION = "HYPERION"
     val AOTE = "AOTE"
-    val JUJU = "JUJU"
-    val GIANT_SWORD = "GIANT_SWORD"
+    val JUJUSHORTBOW = "JUJUSHORTBOW"
+    val GIANTSWORD = "GIANTSWORD"
 }

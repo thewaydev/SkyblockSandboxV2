@@ -20,11 +20,7 @@ import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessa
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
-class Juju : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.JUJU){
-    //override var ability1:SkyblockItemAbility? = SkyblockItemAbility(
-        //"TP","Instant Tranismission", "&6Item Ability: Instant Tranismission &e&lRIGHT CLICK",
-//        50,0, 0, 0.0
-  //  )
+class JujuShortbow : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.JUJUSHORTBOW){
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
         return LoreGenerator(
@@ -40,7 +36,7 @@ class Juju : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.JUJU){
         data.rarity = SkyblockConsts.EPIC
         data.itemType = SkyblockConsts.BOW
         data.reforgeable = true
-        data.dungeonitem = true
+        data.dungeonitem = false
 
         data.baseDamage = 310
         data.baseStrength = 40
@@ -61,6 +57,7 @@ class Juju : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.JUJU){
 
         val arrow = player.launchProjectile(Arrow::class.java,player.location.direction)
         arrow.velocity = arrow.velocity.multiply(3)
+        //TODO add damage
 
     }
 
