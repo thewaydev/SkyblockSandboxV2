@@ -1,30 +1,25 @@
 package xyz.fragbots.sandboxcore.items.weapons
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle
-import net.minecraft.server.v1_8_R3.World
-import org.bukkit.Color
-import org.bukkit.Effect
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
-import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.*
 import xyz.fragbots.sandboxcore.utils.LoreGenerator
-import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.Utils.raycast
-import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getNearbySkyblockEntities
-import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
 class Aote : SkyblockItem(Material.DIAMOND_SWORD,"Aspect Of The End",SkyblockItemIDS.AOTE){
-    override var ability1:SkyblockItemAbility? = SkyblockItemAbility("Instant Tranismission","&6Item Ability: Instant Tranismission &e&lRIGHT CLICK",
+    override var ability1:SkyblockItemAbility? = SkyblockItemAbility(
+        "Instant Tranismission","&6Item Ability: Instant Tranismission &e&lRIGHT CLICK",
         "&7Teleport &a8 Blocks &7ahead of\n" +
-                "&7you and gain §a+50 §f✦ Speed§7\n" +
-                "§7for §a3 seconds§7.",
-        50,0,0,0.0)
+                "&7you and gain &a+50 &f✦ Speed&7\n" +
+                "&7for &a3 seconds&7.",
+        50,
+        0, 0, 0.0
+    )
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
         return LoreGenerator() //It has no
@@ -60,3 +55,4 @@ class Aote : SkyblockItem(Material.DIAMOND_SWORD,"Aspect Of The End",SkyblockIte
     }
 
 }
+
