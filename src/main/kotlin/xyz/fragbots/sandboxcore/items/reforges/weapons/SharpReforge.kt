@@ -2,6 +2,7 @@ package xyz.fragbots.sandboxcore.items.reforges.weapons
 
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import xyz.fragbots.sandboxcore.items.SkyblockConsts
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeType
@@ -22,6 +23,22 @@ class SharpReforge : SkyblockReforge(name = "Sharp", SkyblockReforgeType.WEAPON,
         if(event.reforge.name == this.name) {
             // exec logic
         }
+    }
+    */
+
+    /* example ability text ( not implemented yet )
+    override fun ability(rarity: Int): String {
+        var whateverStat = when(rarity) {
+            SkyblockConsts.COMMON -> 2
+            SkyblockConsts.UNCOMMON -> 3
+            SkyblockConsts.RARE -> 4
+            SkyblockConsts.EPIC -> 6
+            SkyblockConsts.LEGENDARY -> 8
+            SkyblockConsts.MYTHIC -> 10
+            else -> 0
+        }
+
+        return "Get $whateverStat crit chance when u do a backflip"
     }
     */
 }

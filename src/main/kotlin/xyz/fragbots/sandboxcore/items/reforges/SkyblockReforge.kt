@@ -11,6 +11,14 @@ abstract class SkyblockReforge(
     val mythicStats: SkyblockReforgeStats? = null,
     val divineStats: SkyblockReforgeStats? = null,
 ) {
-    open var ability: String? = null;
+
+    /**
+     * Return the ability text; dynamic based on the rarity.
+     * To get the rarity:
+     * @see xyz.fragbots.sandboxcore.items.SkyblockConsts
+     */
+    open fun ability(rarity: Int): String {
+        return ""
+    };
 
 }
