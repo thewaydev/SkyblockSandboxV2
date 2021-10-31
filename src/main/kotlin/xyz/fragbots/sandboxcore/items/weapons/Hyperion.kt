@@ -22,7 +22,7 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
                 "&6Item Ability: Wither Impact &e&lRIGHT CLICK",
         "&7Teleport &a10 Blocks &7ahead of\n" +
                 "&7you. Then implode dealing\n" +
-                "&c&k%%dmg%%&7 damage to nearby\n" +
+                "&c%%dmg%%&7 damage to nearby\n" +
                 "&7enemies. Also applies the wither\n" +
                 "&7shield scroll ability reducing\n" +
                 "&7damage taken and granting an\n" +
@@ -66,6 +66,8 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
             return
         }
 
+        if(!canUseAbility(player,ability1!!)) return sendManaMessage(player)
+
         //Wither Impact Ability Code
         player.teleport(player.raycast(10))
         player.fallDistance = 0.0f
@@ -81,6 +83,7 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
             player.sendFormattedMessage("&7Your Implosion hit &c${damagedEntities.size} &7enemies for &c${Utils.formatNumber(totalDamage)} &7damage.")
         }
 
+        abilityUsed(player,ability1!!)
         //TODO Wither Shield
     }
 }

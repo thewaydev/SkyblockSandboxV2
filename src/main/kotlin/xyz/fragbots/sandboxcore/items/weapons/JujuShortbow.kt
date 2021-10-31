@@ -45,11 +45,8 @@ class JujuShortbow : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.J
             return
         }
 
-
         val arrow = player.launchProjectile(Arrow::class.java,player.location.direction)
         arrow.velocity = arrow.velocity.multiply(3)
-        //TODO add damage
-
     }
 
 }

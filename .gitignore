@@ -3,3 +3,4 @@ jar
 target
 SandboxCore.iml
 src/main/kotlin/xyz/fragbots/sandboxcore/backend/APIConfig.kt
+dependency-reduced-pom.xml
