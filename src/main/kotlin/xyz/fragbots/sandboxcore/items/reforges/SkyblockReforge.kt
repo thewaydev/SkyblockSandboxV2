@@ -2,7 +2,7 @@ package xyz.fragbots.sandboxcore.items.reforges
 
 abstract class SkyblockReforge(
     val name: String,
-    val type: SkyblockReforgeType,
+    val type: Int,
     val commonStats: SkyblockReforgeStats? = null,
     val uncommonStats: SkyblockReforgeStats? = null,
     val rareStats: SkyblockReforgeStats? = null,

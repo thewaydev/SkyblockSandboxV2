@@ -1,14 +1,10 @@
 package xyz.fragbots.sandboxcore.items.reforges.weapons
 
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 import xyz.fragbots.sandboxcore.items.SkyblockConsts
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
-import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeType
-import xyz.fragbots.sandboxcore.utils.damage.SkyblockMeleeDamageEvent
 
-class SharpReforge : SkyblockReforge(name = "Sharp", SkyblockReforgeType.WEAPON,
+class SharpReforge : SkyblockReforge(name = "Sharp", SkyblockConsts.SWORD,
     commonStats = SkyblockReforgeStats(critChance = 10, critDamage = 20),
     uncommonStats = SkyblockReforgeStats(critChance = 12, critDamage = 30),
     rareStats = SkyblockReforgeStats(critChance = 14, critDamage = 40),
