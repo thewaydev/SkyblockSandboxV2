@@ -7,6 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer
 import org.bukkit.plugin.java.JavaPlugin
+import org.reflections.Reflections
 import xyz.fragbots.sandboxcore.commands.ItemCommand
 import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
@@ -56,9 +57,10 @@ class SandboxCore : JavaPlugin() {
     }
 
     private fun registerCommands() {
-        registerCommand(ItemCommand())
-        registerCommand(SpawnEntityCommand())
-
+        val reflections = Reflections("xyz.fragbots.sandboxcore");
+        reflections.getSubTypesOf(Command::class.java).forEach {
+            registerCommand(it.getConstructor().newInstance())
+        }
         logger.info("Loaded Sandbox Core Commands")
     }
 
