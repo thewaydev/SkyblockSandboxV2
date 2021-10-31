@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import de.tr7zw.nbtapi.NBTItem
 import net.minecraft.server.v1_8_R3.Material
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.SkyblockConsts
@@ -11,6 +12,9 @@ import xyz.fragbots.sandboxcore.items.SkyblockItem
 import xyz.fragbots.sandboxcore.items.SkyblockItemData
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
+import xyz.fragbots.sandboxcore.utils.LoreGenerator
+import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
+import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getStats
 import java.lang.NullPointerException
 
 object ItemExtensions {
@@ -39,7 +43,7 @@ object ItemExtensions {
      * @param reforge The reforge you want to apply.
      * @return true when reforge applying succeeded
      */
-    fun ItemStack.reforge(reforge: SkyblockReforge): Boolean {
+    fun ItemStack.reforge(reforge: SkyblockReforge, player: Player): Boolean {
         val nbtItem = NBTItem(this, true);
         var gson = Gson()
         var data: SkyblockItemData = gson.fromJson(nbtItem.getString("itemData"), SkyblockItemData::class.java);
@@ -56,8 +60,15 @@ object ItemExtensions {
             else -> null;
         }
         data.reforgeStats = stats;
-        nbtItem.setString("itemData", gson.toJson(data));
-
+        data.reforgeName = reforge.name;
+        setSkyblockData(data);
+        this.getSkyblockItemInstance()!!.update(this, player.getStats());
         return true;
+    }
+
+    fun ItemStack.setSkyblockData(itemData: SkyblockItemData) {
+        if(!isSkyblockItem()) return
+        val nbtItem = NBTItem(this,true)
+        return nbtItem.setString("itemData",SkyblockItemData.adapter.toJson(itemData))
     }
 }

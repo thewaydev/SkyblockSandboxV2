@@ -38,7 +38,7 @@ data class SkyblockItemData(
                             var baseAbilityDamage:Long?=null,
                             var baseFerocity:Long?=null,
 
-
+                            var reforgeName: String? = null,
                             var reforgeStats: SkyblockReforgeStats? = null,
 ){
     //Getters from all the values to ensure null safety

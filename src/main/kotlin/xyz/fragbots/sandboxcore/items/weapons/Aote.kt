@@ -23,7 +23,7 @@ class Aote : SkyblockItem(Material.DIAMOND_SWORD,"Aspect Of The End",SkyblockIte
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
         return LoreGenerator() //It has no
-                .generic(getItemData(playerStats, true, itemStack), playerStats, this)
+                .generic(getItemData(playerStats, false, itemStack), playerStats, this)
     }
 
     override fun getDefaultData(playerStats: PlayerStats):SkyblockItemData {
