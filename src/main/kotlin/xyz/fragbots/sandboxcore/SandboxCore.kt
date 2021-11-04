@@ -57,7 +57,7 @@ class SandboxCore : JavaPlugin() {
     }
 
     private fun registerCommands() {
-        val reflections = Reflections("xyz.fragbots.sandboxcore");
+        val reflections = Reflections("xyz.fragbots.sandboxcore.commands");
         reflections.getSubTypesOf(Command::class.java).forEach {
             registerCommand(it.getConstructor().newInstance())
         }
