@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftServer
 import org.bukkit.plugin.java.JavaPlugin
 import org.reflections.Reflections
 import xyz.fragbots.sandboxcore.commands.ItemCommand
+import xyz.fragbots.sandboxcore.commands.ReforgeCommand
 import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
@@ -61,6 +62,7 @@ class SandboxCore : JavaPlugin() {
         reflections.getSubTypesOf(Command::class.java).forEach {
             registerCommand(it.getConstructor().newInstance())
         }
+        
         logger.info("Loaded Sandbox Core Commands")
     }
 
