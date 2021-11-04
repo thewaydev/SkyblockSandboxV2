@@ -7,11 +7,11 @@ import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
 class FastReforge : SkyblockReforge(
     name = "Fast",
     type = SkyblockConsts.SWORD,
-    commonStats = SkyblockReforgeStats( attackSpeed = 1),
-    uncommonStats = SkyblockReforgeStats(attackSpeed = 2),
-    rareStats = SkyblockReforgeStats(attackSpeed = 4),
-    epicStats = SkyblockReforgeStats(attackSpeed = 7),
-    legendaryStats = SkyblockReforgeStats(attackSpeed = 10),
-    mythicStats = SkyblockReforgeStats(attackSpeed = 15),
+    commonStats = SkyblockReforgeStats(attackSpeed = 10),
+    uncommonStats = SkyblockReforgeStats(attackSpeed = 20),
+    rareStats = SkyblockReforgeStats(attackSpeed = 30),
+    epicStats = SkyblockReforgeStats(attackSpeed = 40),
+    legendaryStats = SkyblockReforgeStats(attackSpeed = 50),
+    mythicStats = SkyblockReforgeStats(attackSpeed = 60),
 ) {
 }
