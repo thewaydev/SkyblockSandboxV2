@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
 import xyz.fragbots.sandboxcore.utils.Utils
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItem
 import xyz.fragbots.sandboxcore.utils.item.ItemExtensions.getSkyblockItemInstance
@@ -30,6 +31,7 @@ abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:Stri
     open var ability1: SkyblockItemAbility? = null
     open var ability2: SkyblockItemAbility? = null
     open var ability3: SkyblockItemAbility? = null
+
 
     /*
         * Creates the item with all the default values
@@ -59,9 +61,14 @@ abstract class SkyblockItem(val baseMat:Material,val itemName:String,val id:Stri
 
     open fun update(item:ItemStack, playerStats: PlayerStats){
         val meta = item.itemMeta
+        if(item.getSkyblockItem()!!.reforgeName != null) {
+            /* if it works dont touch it */
+            meta.displayName = "${Utils.rarityToColor(getItemData(playerStats, true).getRarity())}${item.getSkyblockItem()!!.reforgeName} ${this.itemName}"
+        }
         meta.lore = ArrayList(getLore(playerStats,item))
         item.itemMeta = meta
     }
+
 
     /*
         * Adds nbt data to all skyblock items

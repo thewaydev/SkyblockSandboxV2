@@ -1,22 +1,13 @@
 package xyz.fragbots.sandboxcore.items.weapons
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle
-import net.minecraft.server.v1_8_R3.World
-import org.bukkit.Color
-import org.bukkit.Effect
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.Arrow
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
-import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.*
 import xyz.fragbots.sandboxcore.utils.LoreGenerator
 import xyz.fragbots.sandboxcore.utils.Utils
-import xyz.fragbots.sandboxcore.utils.Utils.raycast
-import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getNearbySkyblockEntities
-import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.sendFormattedMessage
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 

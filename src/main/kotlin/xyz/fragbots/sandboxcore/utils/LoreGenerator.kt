@@ -19,31 +19,43 @@ class LoreGenerator(vararg val extraLore: String) {
         var addBreak = false
 
         if(itemData.getFinalDamage() > 0){
-            finalLore.add(line, Utils.format("&7Damage: &c+${itemData.getFinalDamage()}"))
+            finalLore.add(line, Utils.format("&7Damage: &c+${itemData.getFinalDamage()} "))
             line++;addBreak=true
         }
         if(itemData.getFinalStrength() > 0){
-            finalLore.add(line, Utils.format("&7Strength: &c+${itemData.getFinalStrength()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.strength != 0L)
+                "&9(+${itemData.reforgeStats!!.strength})" else ""
+            finalLore.add(line, Utils.format("&7Strength: &c+${itemData.getFinalStrength()} $reforge"))
             line++;addBreak=true
         }
         if(itemData.getFinalCritChance() > 0){
-            finalLore.add(line, Utils.format("&7Crit Chance: &c+${itemData.getFinalCritChance()}%"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.critChance != 0L)
+                "&9(+${itemData.reforgeStats!!.critChance}%)" else ""
+            finalLore.add(line, Utils.format("&7Crit Chance: &c+${itemData.getFinalCritChance()}% $reforge"))
             line++;addBreak=true
         }
         if(itemData.getFinalCritDamage() > 0){
-            finalLore.add(line, Utils.format("&7Crit Damage: &c+${itemData.getFinalCritDamage()}%"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.critDamage != 0L)
+                "&9(+${itemData.reforgeStats!!.critDamage}%)" else ""
+            finalLore.add(line, Utils.format("&7Crit Damage: &c+${itemData.getFinalCritDamage()}% $reforge"))
             line++;addBreak=true
         }
         if(itemData.getFinalAttackSpeed() > 0){
-            finalLore.add(line, Utils.format("&7Attack Speed: &c+${itemData.getFinalAttackSpeed()}%"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.attackSpeed != 0L)
+                "&9(+${itemData.reforgeStats!!.attackSpeed})" else ""
+            finalLore.add(line, Utils.format("&7Attack Speed: &c+${itemData.getFinalAttackSpeed()}% $reforge"))
             line++;addBreak=true
         }
         if(itemData.getFinalSeaCreatureChance() > 0){
-            finalLore.add(line, Utils.format("&7Sea Creature Chance: &c+${itemData.getFinalSeaCreatureChance()}%"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.seaCreatureChance != 0L)
+                "&9(+${itemData.reforgeStats!!.seaCreatureChance})" else ""
+            finalLore.add(line, Utils.format("&7Sea Creature Chance: &c+${itemData.getFinalSeaCreatureChance()}% $reforge"))
             line++;addBreak=true
         }
         if(itemData.getFinalAbilityDamage() > 0){
-            finalLore.add(line, Utils.format("&7Ability Damage: &c+${itemData.getFinalAbilityDamage()}%"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.abilityDamage != 0L)
+                "&9(+${itemData.reforgeStats!!.abilityDamage})" else ""
+            finalLore.add(line, Utils.format("&7Ability Damage: &c+${itemData.getFinalAbilityDamage()}% $reforge"))
             line++;addBreak=true
         }
 
@@ -58,35 +70,51 @@ class LoreGenerator(vararg val extraLore: String) {
         var addBreak2 = false
 
         if(itemData.getFinalHealth() > 0){
-            finalLore.add(line, Utils.format("&7Health: &a+${itemData.getFinalHealth()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.health != 0L)
+                "&9(+${itemData.reforgeStats!!.health})" else ""
+            finalLore.add(line, Utils.format("&7Health: &a+${itemData.getFinalHealth()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalDefense() > 0){
-            finalLore.add(line, Utils.format("&7Defense: &a+${itemData.getFinalDefense()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.defense != 0L)
+                "&9(+${itemData.reforgeStats!!.defense})" else ""
+            finalLore.add(line, Utils.format("&7Defense: &a+${itemData.getFinalDefense()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalSpeed() > 0){
-            finalLore.add(line, Utils.format("&7Speed: &a+${itemData.getFinalSeaCreatureChance()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.speed != 0L)
+                "&9(+${itemData.reforgeStats!!.speed})" else ""
+            finalLore.add(line, Utils.format("&7Speed: &a+${itemData.getFinalSeaCreatureChance()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalIntel() > 0){
-            finalLore.add(line, Utils.format("&7Intelligence: &a+${itemData.getFinalIntel()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.intelligence != 0L)
+                "&9(+${itemData.reforgeStats!!.intelligence})" else ""
+            finalLore.add(line, Utils.format("&7Intelligence: &a+${itemData.getFinalIntel()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalTrueDefense() > 0){
-            finalLore.add(line, Utils.format("&7True Defense: &a+${itemData.getFinalTrueDefense()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.trueDefense != 0L)
+                "&9(+${itemData.reforgeStats!!.trueDefense})" else ""
+            finalLore.add(line, Utils.format("&7True Defense: &a+${itemData.getFinalTrueDefense()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalMagicFind() > 0){
-            finalLore.add(line, Utils.format("&7Magic Find &a+${itemData.getFinalMagicFind()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.magicFind != 0L)
+                "&9(+${itemData.reforgeStats!!.magicFind})" else ""
+            finalLore.add(line, Utils.format("&7Magic Find &a+${itemData.getFinalMagicFind()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalPetLuck() > 0){
-            finalLore.add(line, Utils.format("&7Pet Luck: &a+${itemData.getFinalPetLuck()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.petLuck != 0L)
+                "&9(+${itemData.reforgeStats!!.petLuck})" else ""
+            finalLore.add(line, Utils.format("&7Pet Luck: &a+${itemData.getFinalPetLuck()} $reforge"))
             line++;addBreak2=true
         }
         if(itemData.getFinalFerocity() > 0){
-            finalLore.add(line, Utils.format("&7Ferocity: &a+${itemData.getFinalFerocity()}"))
+            val reforge = if (itemData.reforgeStats != null && itemData.reforgeStats!!.ferocity != 0L)
+                "&9(+${itemData.reforgeStats!!.ferocity})" else ""
+            finalLore.add(line, Utils.format("&7Ferocity: &a+${itemData.getFinalFerocity()} $reforge"))
             line++;addBreak2=true
         }
 
