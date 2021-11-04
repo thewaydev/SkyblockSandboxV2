@@ -8,11 +8,14 @@ import org.bukkit.command.Command
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer
 import org.bukkit.plugin.java.JavaPlugin
 import org.reflections.Reflections
+import xyz.fragbots.sandboxcore.commands.EnchantCommand
+import xyz.fragbots.sandboxcore.commands.GetNBTCommand
 import xyz.fragbots.sandboxcore.commands.ItemCommand
 import xyz.fragbots.sandboxcore.commands.ReforgeCommand
 import xyz.fragbots.sandboxcore.commands.SpawnEntityCommand
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntityManager
 import xyz.fragbots.sandboxcore.items.SkyblockItemFactory
+import xyz.fragbots.sandboxcore.items.enchants.EnchantManager
 import xyz.fragbots.sandboxcore.listeners.*
 import xyz.fragbots.sandboxcore.listeners.ranks.ChatListener
 import xyz.fragbots.sandboxcore.listeners.ranks.LogOutListener
@@ -33,6 +36,8 @@ class SandboxCore : JavaPlugin() {
     lateinit var dynamicStatManager: DynamicStatManager
     lateinit var actionBarManager: ActionBarManager
     lateinit var inventoryManager: InventoryManager
+    lateinit var enchantManager: EnchantManager
+
     override fun onEnable() {
         loadClasses()
         registerCommands()
@@ -53,6 +58,7 @@ class SandboxCore : JavaPlugin() {
         actionBarManager = ActionBarManager()
         inventoryManager = InventoryManager(this)
         inventoryManager.init()
+        enchantManager = EnchantManager()
 
         logger.info("Loaded Sandbox Core variables")
     }
