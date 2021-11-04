@@ -62,7 +62,7 @@ class EnchSelectorGUI(val item:ItemStack,val data:SkyblockItemData, val enchant 
 
         contents.fill(ClickableItem.empty(fillerGlass))
         contents.set(1,4,ClickableItem.empty(enchantItem))
-        contents.set(1,2,ClickableItem.of(removeEnchItem) {
+        contents.set(1,6,ClickableItem.of(removeEnchItem) {
             data.removeEnchant(enchant.id)
             val instance = item.getSkyblockItemInstance() ?: return@of
             item.setSkyblockData(data)
@@ -70,7 +70,7 @@ class EnchSelectorGUI(val item:ItemStack,val data:SkyblockItemData, val enchant 
             player.updateInventory()
             player.closeInventory()
         })
-        contents.set(1,6,ClickableItem.of(addEnchItem) {
+        contents.set(1,2,ClickableItem.of(addEnchItem) {
             AnvilGUI.Builder()
                 .onComplete { player: Player, text: String ->
                     val level = try {
