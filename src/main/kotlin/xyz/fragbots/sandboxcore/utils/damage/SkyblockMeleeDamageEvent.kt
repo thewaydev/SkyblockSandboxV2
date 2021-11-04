@@ -10,8 +10,8 @@ import xyz.fragbots.sandboxcore.entitites.SkyblockEntity
 * Coded in java for better hooking into bukkit
 */
 class SkyblockMeleeDamageEvent(
-    private val player: Player,
-    private val entity: SkyblockEntity,
+    val player: Player,
+    val entity: SkyblockEntity,
     var isCrit: Boolean,
     var inititalDamage: Double,
     var damageMultiplier: Double,
@@ -21,10 +21,15 @@ class SkyblockMeleeDamageEvent(
     var isCancelled = false
 
     override fun getHandlers(): HandlerList {
-        return handlerList
+        return HANDLERS
     }
 
     companion object {
-        val handlerList = HandlerList()
+        private val HANDLERS = HandlerList()
+
+        @JvmStatic
+        fun getHandlerList(): HandlerList {
+            return HANDLERS
+        }
     }
 }

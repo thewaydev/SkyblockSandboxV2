@@ -32,6 +32,7 @@ object ItemExtensions {
         val nbtItem = NBTItem(this)
         return SkyblockItemData.adapter.fromJson(nbtItem.getString("itemData"))
     }
+
     fun ItemStack.getSkyblockItemInstance(): SkyblockItem? {
         val item = getSkyblockItem() ?: return null
         return SandboxCore.instance.itemFactory.getItem(item.id)
