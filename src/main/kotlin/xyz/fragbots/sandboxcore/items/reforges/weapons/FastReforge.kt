@@ -4,8 +4,8 @@ import xyz.fragbots.sandboxcore.items.SkyblockConsts
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
 import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
 
-class SpicyReforge : SkyblockReforge(
-    name = "Spicy",
+class FastReforge : SkyblockReforge(
+    name = "Fast",
     type = SkyblockConsts.SWORD,
     commonStats = SkyblockReforgeStats( attackSpeed = 1),
     uncommonStats = SkyblockReforgeStats(attackSpeed = 2),
