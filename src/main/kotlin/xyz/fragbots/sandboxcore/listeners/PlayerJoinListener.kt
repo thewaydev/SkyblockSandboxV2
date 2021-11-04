@@ -3,7 +3,9 @@ package xyz.fragbots.sandboxcore.listeners
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerLoginEvent
+import org.bukkit.event.player.PlayerQuitEvent
 import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.backend.data.Ranks
 import xyz.fragbots.sandboxcore.utils.player.PlayerExtensions.getStaffRank
@@ -21,5 +23,15 @@ class PlayerJoinListener : Listener{
                 }
             }
         }
+    }
+
+    @EventHandler
+    fun playerJoinEvent(event: PlayerJoinEvent) {
+        event.joinMessage = ""
+    }
+
+    @EventHandler
+    fun playerQuitEvent(event: PlayerQuitEvent) {
+        event.quitMessage = ""
     }
 }

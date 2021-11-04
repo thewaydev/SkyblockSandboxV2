@@ -6,8 +6,8 @@ import org.bukkit.event.HandlerList
 import xyz.fragbots.sandboxcore.entitites.SkyblockEntity
 
 class SkyblockMagicDamageEvent(
-    private val player: Player,
-    private val entity: SkyblockEntity,
+    val player: Player,
+    val entity: SkyblockEntity,
     var baseAbilityDamage: Double,
     var multipler: Double,
     var enchantMultiplier: Double
@@ -16,10 +16,15 @@ class SkyblockMagicDamageEvent(
     var isCancelled = false
 
     override fun getHandlers(): HandlerList {
-        return handlerList
+        return HANDLERS
     }
 
     companion object {
-        val handlerList = HandlerList()
+        private val HANDLERS = HandlerList()
+
+        @JvmStatic
+        fun getHandlerList(): HandlerList {
+            return HANDLERS
+        }
     }
 }
