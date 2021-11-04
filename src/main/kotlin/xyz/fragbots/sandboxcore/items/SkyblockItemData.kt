@@ -1,6 +1,8 @@
 package xyz.fragbots.sandboxcore.items
 
 import xyz.fragbots.sandboxcore.SandboxCore
+import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforge
+import xyz.fragbots.sandboxcore.items.reforges.SkyblockReforgeStats
 
 
 /*
@@ -36,8 +38,8 @@ data class SkyblockItemData(
                             var basePetLuck:Long?=null,
                             var baseAbilityDamage:Long?=null,
                             var baseFerocity:Long?=null,
-
-
+                            var reforgeName: String? = null,
+                            var reforgeStats: SkyblockReforgeStats? = null,
 ){
     //Getters from all the values to ensure null safety
     fun getRarity():Int {
@@ -117,45 +119,73 @@ data class SkyblockItemData(
         return getBaseDamage()
     }
     fun getFinalStrength():Long {
-        return getBaseStrength()
+        if(reforgeStats != null)
+            return getBaseStrength() + reforgeStats!!.strength;
+        return getBaseStrength();
     }
     fun getFinalTrueDefense():Long {
+        if(reforgeStats != null)
+            return getBaseTrueDefense() + reforgeStats!!.trueDefense;
         return getBaseTrueDefense()
     }
     fun getFinalHealth():Long {
+        if(reforgeStats != null)
+            return getBaseHealth() + reforgeStats!!.health;
         return getBaseHealth()
     }
     fun getFinalIntel():Long {
+        if(reforgeStats != null)
+            return getBaseIntel() + reforgeStats!!.intelligence;
         return getBaseIntel()
     }
     fun getFinalDefense():Long {
+        if(reforgeStats != null)
+            return getBaseDefense() + reforgeStats!!.defense;
         return getBaseDefense()
     }
     fun getFinalCritChance():Long {
+        if(reforgeStats != null)
+            return getBaseCritChance() + reforgeStats!!.critChance;
         return getBaseCritChance()
     }
     fun getFinalCritDamage():Long {
+        if(reforgeStats != null)
+            return getBaseCritDamage() + reforgeStats!!.critDamage;
         return getBaseCritDamage()
     }
     fun getFinalAttackSpeed():Long {
+        if(reforgeStats != null)
+            return getBaseAttackSpeed() + reforgeStats!!.attackSpeed;
         return getBaseAttackSpeed()
     }
     fun getFinalSpeed():Long {
+        if(reforgeStats != null)
+            return getBaseSpeed() + reforgeStats!!.speed;
         return getBaseSpeed()
     }
     fun getFinalSeaCreatureChance():Long {
+        if(reforgeStats != null)
+            return getBaseSeaCreatureChance() + reforgeStats!!.seaCreatureChance;
         return getBaseSeaCreatureChance()
     }
     fun getFinalMagicFind(): Long {
+        if(reforgeStats != null)
+            return getBaseMagicFind() + reforgeStats!!.magicFind;
         return getBaseMagicFind()
     }
     fun getFinalPetLuck(): Long {
+        if(reforgeStats != null)
+            return getBasePetLuck() + reforgeStats!!.petLuck;
         return getBasePetLuck()
     }
     fun getFinalAbilityDamage():Long {
+        if(reforgeStats != null)
+            return getBaseAbilityDamage() + reforgeStats!!.abilityDamage;
         return getBaseAbilityDamage()
     }
     fun getFinalFerocity():Long {
+        if(reforgeStats != null)
+            return getBaseFerocity() + reforgeStats!!.ferocity;
         return getBaseFerocity()
     }
 

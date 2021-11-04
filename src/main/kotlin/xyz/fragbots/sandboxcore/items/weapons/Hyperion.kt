@@ -1,4 +1,5 @@
 package xyz.fragbots.sandboxcore.items.weapons
+
 import org.bukkit.Effect
 import org.bukkit.Material
 import org.bukkit.Sound
