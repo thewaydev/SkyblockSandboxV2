@@ -7,6 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer
 import org.bukkit.plugin.java.JavaPlugin
+import org.reflections.Reflections
 import xyz.fragbots.sandboxcore.commands.EnchantCommand
 import xyz.fragbots.sandboxcore.commands.GetNBTCommand
 import xyz.fragbots.sandboxcore.commands.ItemCommand
@@ -63,12 +64,11 @@ class SandboxCore : JavaPlugin() {
     }
 
     private fun registerCommands() {
-        registerCommand(ItemCommand())
-        registerCommand(SpawnEntityCommand())
-        registerCommand(EnchantCommand())
-        registerCommand(GetNBTCommand())
-        registerCommand(ReforgeCommand())
-
+        val reflections = Reflections("xyz.fragbots.sandboxcore.commands");
+        reflections.getSubTypesOf(Command::class.java).forEach {
+            registerCommand(it.getConstructor().newInstance())
+        }
+        
         logger.info("Loaded Sandbox Core Commands")
     }
 
