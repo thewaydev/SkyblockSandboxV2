@@ -1,8 +1,10 @@
 package xyz.fragbots.sandboxcore.utils
 
+import xyz.fragbots.sandboxcore.SandboxCore
 import xyz.fragbots.sandboxcore.items.SkyblockItem
 import xyz.fragbots.sandboxcore.items.SkyblockItemAbility
 import xyz.fragbots.sandboxcore.items.SkyblockItemData
+import xyz.fragbots.sandboxcore.items.enchants.Enchant
 import xyz.fragbots.sandboxcore.utils.player.PlayerStats
 
 
@@ -93,6 +95,28 @@ class LoreGenerator(vararg val extraLore: String) {
             line++;
         }
 
+        /**
+         * Lore Generation: Enchants
+         */
+
+        val enchants = itemData.getEnchants()
+        if(enchants.isNotEmpty()) {
+            var enchString = ""
+            enchants.keys.forEachIndexed() { index, enchantId ->
+                val enchant = SandboxCore.instance.enchantManager.getEnchant(enchantId) ?: return@forEachIndexed
+                val level = enchants[enchantId] ?: return@forEachIndexed
+                if(index%2==0){
+                    enchString+=generateEnchantString(enchant,level)
+                }else{
+                    enchString+=", "+generateEnchantString(enchant, level)+"\n"
+                }
+            }
+            val enchLore = enchString.split("\n")
+            finalLore.addAll(line,enchLore); line+=enchLore.size
+            finalLore.add(line, " "); line++
+        }
+
+
         /*
          * Lore Generation: Add extra item lore, if provided
          */
@@ -107,14 +131,14 @@ class LoreGenerator(vararg val extraLore: String) {
          * Lore Generation: Abilities
          */
 
-        var addBreak3 = false
+        var addBreak4 = false
 
         val ability1 = itemInstance.ability1
         val ability2 = itemInstance.ability2
         val ability3 = itemInstance.ability3
 
         if(ability1!=null){
-            addBreak3 = true
+            addBreak4 = true
             if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
@@ -123,7 +147,7 @@ class LoreGenerator(vararg val extraLore: String) {
         }
 
         if(ability2!=null){
-            addBreak3 = true
+            addBreak4 = true
             if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
@@ -132,7 +156,7 @@ class LoreGenerator(vararg val extraLore: String) {
         }
 
         if(ability3!=null){
-            addBreak3 = true
+            addBreak4 = true
             if(finalLore[line-1].isNotBlank()){
                 finalLore.add(line, " "); line++
             }
@@ -140,7 +164,7 @@ class LoreGenerator(vararg val extraLore: String) {
             finalLore.addAll(line, abilityLore); line+=abilityLore.size
         }
 
-        if(addBreak3) {
+        if(addBreak4) {
             finalLore.add(line, " ")
             line++;
         }
@@ -175,5 +199,9 @@ class LoreGenerator(vararg val extraLore: String) {
             lore.add(Utils.format("&7Cooldown: &a${ability.cooldown}s"))
         }
         return lore
+    }
+
+    fun generateEnchantString(enchant: Enchant, level:Int): String {
+        return Utils.format("&9${enchant.name} $level")
     }
 }

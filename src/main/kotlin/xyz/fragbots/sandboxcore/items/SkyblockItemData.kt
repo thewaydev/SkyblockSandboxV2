@@ -17,6 +17,7 @@ data class SkyblockItemData(
                             var itemType:Int?=null,
                             var reforgeable:Boolean?=null,
                             var dungeonitem:Boolean?=null,
+                            private var enchants:MutableMap<String,Int>? = null,
 
                             /* Normal Stats */
 
@@ -36,6 +37,7 @@ data class SkyblockItemData(
                             var baseAbilityDamage:Long?=null,
                             var baseFerocity:Long?=null,
 
+
 ){
     //Getters from all the values to ensure null safety
     fun getRarity():Int {
@@ -50,6 +52,20 @@ data class SkyblockItemData(
     fun isDungeonItem(): Boolean {
         return dungeonitem ?: false
     }
+    fun getEnchants(): MutableMap<String,Int> {
+        return enchants ?: HashMap()
+    }
+    fun addEnchant(enchantId:String,level:Int) {
+        if(enchants==null){
+            enchants = getEnchants()
+        }
+        enchants!![enchantId] = level
+    }
+    fun removeEnchant(enchantId:String) {
+        if(enchants!=null){
+            enchants?.remove(enchantId)
+        }
+}
     fun getBaseDamage():Long {
         return baseDamage ?: 0
     }

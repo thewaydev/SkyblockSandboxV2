@@ -33,7 +33,7 @@ class GiantSword : SkyblockItem(Material.IRON_SWORD,"Giant's Sword",SkyblockItem
     )
 
     override fun getLore(playerStats: PlayerStats, itemStack: ItemStack?): Collection<String> {
-        return LoreGenerator().generic(getItemData(playerStats, true, itemStack), playerStats, this)
+        return LoreGenerator().generic(getItemData(playerStats, false, itemStack), playerStats, this)
     }
 
 

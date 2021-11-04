@@ -38,7 +38,7 @@ class Hyperion : SkyblockItem(Material.IRON_SWORD,"Hyperion",SkyblockItemIDS.HYP
             Utils.format("&7per &cCatacombs &7level."),
             " ",
             Utils.format("&7Your Catacombs level: &c0"))
-            .generic(getItemData(playerStats, true, itemStack), playerStats, this)
+            .generic(getItemData(playerStats, false, itemStack), playerStats, this)
     }
 
 

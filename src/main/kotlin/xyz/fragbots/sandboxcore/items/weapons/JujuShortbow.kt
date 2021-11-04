@@ -27,7 +27,7 @@ class JujuShortbow : SkyblockItem(Material.BOW,"Juju Shortbow",SkyblockItemIDS.J
             Utils.format("&5Shortbow: Instantly shoots!"),
             Utils.format("&7Hits &c3 &7mobs on impact."),
             Utils.format("&7Can damage endermen."))
-            .generic(getItemData(playerStats, true, itemStack), playerStats, this)
+            .generic(getItemData(playerStats, false, itemStack), playerStats, this)
     }
 
     override fun getDefaultData(playerStats: PlayerStats):SkyblockItemData {

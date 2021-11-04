@@ -85,10 +85,9 @@ class ItemsGUI(val search:String?=null) : InventoryProvider{
         leftArrowMeta.displayName = "§aPrev. Page"
         leftArrow.itemMeta = leftArrowMeta
 
-
-        contents.set(5,0, ClickableItem.empty(glassFiller))
-        contents.set(5,1, ClickableItem.empty(glassFiller))
-        contents.set(5,2, ClickableItem.empty(glassFiller))
+        for(i in 0..8){
+            contents.set(5,i, ClickableItem.empty(glassFiller))
+        }
         contents.set(5,3, ClickableItem.of(leftArrow) { e -> getInventory().open(player, pagination.previous().page) })
         contents.set(5,4, ClickableItem.of(searchItem) {
             AnvilGUI.Builder()
@@ -102,9 +101,6 @@ class ItemsGUI(val search:String?=null) : InventoryProvider{
                 .open(player)
         })
         contents.set(5,5, ClickableItem.of(rightArrow) { e -> getInventory().open(player, pagination.next().page) })
-        contents.set(5,6, ClickableItem.empty(glassFiller))
-        contents.set(5,7, ClickableItem.empty(glassFiller))
-        contents.set(5,8, ClickableItem.empty(glassFiller))
 
 
     }
