@@ -48,7 +48,7 @@ abstract class SkyblockEntity(val name:String){
     /*
      * Spawns the entity instance and assigns a unique mob id
      */
-    fun spawn(loc:Location){
+    open fun spawn(loc:Location){
         val spawnedEntity = loc.world.spawnEntity(loc,entityType) as LivingEntity
         entity = spawnedEntity
         val id = SandboxCore.instance.entityManager.registerEntity(this)
@@ -88,7 +88,7 @@ abstract class SkyblockEntity(val name:String){
         ent.health=0.0
     }
 
-    fun generateName() : String {
+    open fun generateName() : String {
         return "§8[§7Lv$level§8] §c$name ${if(currentHealth<=health/2) "§e" else "§a"}${if(currentHealth<=0) 0 else currentHealth}§f/§a$health§c❤"
     }
 }
